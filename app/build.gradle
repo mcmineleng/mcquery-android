@@ -1,0 +1,110 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'cn.mcleng.mineleng.mcserverquery'
+    compileSdk 35
+    buildToolsVersion "35.0.0"  // 明确指定你已安装的版本（可选，但建议加上）
+
+    signingConfigs {
+        debug {
+            storeFile file("${System.getenv('KEYSTORE_PATH') ?: 'keystore/app.jks'}")
+            storePassword System.getenv('KEYSTORE_PASSWORD') ?: 'android123'
+            keyAlias System.getenv('KEY_ALIAS') ?: 'myapp-key'
+            keyPassword System.getenv('KEY_PASSWORD') ?: 'android123'
+        }
+
+        release {
+            storeFile file("${System.getenv('KEYSTORE_PATH') ?: 'keystore/app.jks'}")
+            storePassword System.getenv('KEYSTORE_PASSWORD') ?: 'android123'
+            keyAlias System.getenv('KEY_ALIAS') ?: 'myapp-key'
+            keyPassword System.getenv('KEY_PASSWORD') ?: 'android123'
+        }
+    }
+
+    defaultConfig {
+        applicationId "cn.mcleng.mineleng.mcserverquery"
+        minSdk 28
+        targetSdk 34  // 改为 34，匹配已安装的版本
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'io.github.fragland:MineStat:3.0.6'
+    implementation 'dnsjava:dnsjava:3.6.2'
+}
+
+task createKeystore(type: Exec) {
+    group = 'verification'
+    description = 'Generate JKS keystore if it does not exist'
+
+    def keystorePath = "${System.getenv('KEYSTORE_PATH') ?: projectDir.parent}/keystore/app.jks"
+    def keystoreDir = new File(keystorePath).parent
+
+    def dir = new File(keystoreDir)
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+
+    def keystoreFile = new File(keystorePath)
+    if (keystoreFile.exists()) {
+        println "Keystore already exists at: $keystorePath"
+        return
+    }
+
+    def keytoolExe = ['keytool', '-genkeypair', '-v',
+                      '-keystore', keystorePath,
+                      '-storetype', 'JKS',
+                      '-keyalg', 'RSA',
+                      '-keysize', '2048',
+                      '-validity', '10000',
+                      '-alias', System.getenv('KEY_ALIAS') ?: 'myapp-key',
+                      '-storepass', System.getenv('KEYSTORE_PASSWORD') ?: 'android123',
+                      '-keypass', System.getenv('KEY_PASSWORD') ?: 'android123',
+                      '-dname', "CN=MyApp, OU=Dev, O=MyCompany, L=Beijing, ST=Beijing, C=CN"]
+
+    environment 'KEYSTORE_PATH', keystorePath
+    environment 'KEY_ALIAS', System.getenv('KEY_ALIAS') ?: 'myapp-key'
+    environment 'KEYSTORE_PASSWORD', System.getenv('KEYSTORE_PASSWORD') ?: 'android123'
+    environment 'KEY_PASSWORD', System.getenv('KEY_PASSWORD') ?: 'android123'
+
+    doFirst {
+        if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+            commandLine 'cmd', '/c', 'keytool', '-genkeypair', '-v',
+                    '-keystore', keystorePath,
+                    '-storetype', 'JKS',
+                    '-keyalg', 'RSA',
+                    '-keysize', '2048',
+                    '-validity', '10000',
+                    '-alias', System.getenv('KEY_ALIAS') ?: 'myapp-key',
+                    '-storepass', System.getenv('KEYSTORE_PASSWORD') ?: 'android123',
+                    '-keypass', System.getenv('KEY_PASSWORD') ?: 'android123',
+                    '-dname', "CN=MyApp, OU=Dev, O=MyCompany, L=Beijing, ST=Beijing, C=CN"
+        } else {
+            commandLine keytoolExe
+        }
+    }
+}

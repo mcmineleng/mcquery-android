@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MCQuery</string>
+    <string name="edition_label">Edition</string>
+    <string name="java_edition">Java Edition</string>
+    <string name="bedrock_edition">Bedrock Edition</string>
+    <string name="hint_address">Connect Address</string>
+    <string name="hint_domain">Connect Domain</string>
+    <string name="hint_port">Connect Port</string>
+    <string name="query_button">Query</string>
+    <string name="motd_label">MOTD</string>
+    <string name="version_label">Server Version</string>
+    <string name="ping_label">Ping</string>
+    <string name="players_label">Online Players</string>
+    <string name="server_offline">Server Offline</string>
+    <string name="ping_format">%d ms</string>
+    <string name="players_format">%d/%d</string>
+    <string name="error_empty_address">Please enter server address</string>
+    <string name="color_picker_title">Theme Color</string>
+    <string name="hex_hint">HEX color (e.g. #0078D4)</string>
+    <string name="dynamic_color_label">Dynamic color (follow wallpaper)</string>
+    <string name="dynamic_color_unsupported">Dynamic color (not supported)</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="type_button">Button</string>
+    <string name="type_background">Background</string>
+    <string name="type_card">Card</string>
+    <string name="type_text">Text</string>
+    <string name="type_slider">Slider</string>
+    <string name="corner_radius_label">Input corner radius</string>
+    <string name="card_corner_radius_label">Card corner radius</string>
+    <string name="button_corner_radius_label">Button corner radius</string>
+    <string name="radius_format">%d dp</string>
+    <string name="radius_exact_hint">Exact value (can exceed 50)</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MC服查</string>
+    <string name="edition_label">版本选择</string>
+    <string name="java_edition">Java版</string>
+    <string name="bedrock_edition">基岩版</string>
+    <string name="hint_address">连接地址</string>
+    <string name="hint_domain">连接域名</string>
+    <string name="hint_port">连接端口</string>
+    <string name="query_button">查询</string>
+    <string name="motd_label">每日一言</string>
+    <string name="version_label">服务器版本</string>
+    <string name="ping_label">延迟</string>
+    <string name="players_label">在线人数</string>
+    <string name="server_offline">服务器离线</string>
+    <string name="ping_format">%d ms</string>
+    <string name="players_format">%d/%d</string>
+    <string name="error_empty_address">请输入服务器地址</string>
+    <string name="color_picker_title">选择主题色</string>
+    <string name="hex_hint">HEX色值 (如 #0078D4)</string>
+    <string name="dynamic_color_label">动态取色（跟随壁纸）</string>
+    <string name="dynamic_color_unsupported">动态取色（系统不支持）</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="type_button">按钮</string>
+    <string name="type_background">背景</string>
+    <string name="type_card">卡片</string>
+    <string name="type_text">文字</string>
+    <string name="type_slider">滑块</string>
+    <string name="corner_radius_label">输入框圆角</string>
+    <string name="card_corner_radius_label">卡片圆角</string>
+    <string name="button_corner_radius_label">按钮圆角</string>
+    <string name="radius_format">%d dp</string>
+    <string name="radius_exact_hint">精确值（可超过50）</string>
+</resources>
